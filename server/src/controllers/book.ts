@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Book } from "../entity/Book";
+import { Genre } from "../entity/Genre";
+import { Author } from "../entity/Author";
 
 // GET ALL
 export const getAllBooks = async ({}, res: Response) => {
@@ -19,10 +21,13 @@ export const getAllBooks = async ({}, res: Response) => {
 export const addBook = async (req: Request, res: Response) => {
     try {
         // body -> name, genreId, authorId
+
+        const genre = await Genre.findOne(req.body.genreId);
+        const author = await Author.findOne(req.body.authorId);
         const newBook = await Book.create({
             name: req.body.name,
-            genres: req.body.genreId,
-            author: req.body.authorId
+            genres: [genre],
+            author: author
         });
         await newBook.save();
         return res.json({

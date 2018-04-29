@@ -11,10 +11,10 @@ export class Author extends BaseEntity {
     name: string;
 
     @Column()
-    age: string;
+    age: number;
 
     @OneToMany(() => Book, book => book.author)
     @JoinColumn()
-    books: number;
+    books: Book[];
 
 }

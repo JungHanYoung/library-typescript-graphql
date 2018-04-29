@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany, ManyToOne, JoinColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany, ManyToOne} from "typeorm";
 import { Genre } from "./Genre";
 import { Author } from "./Author";
 
@@ -11,11 +11,14 @@ export class Book extends BaseEntity {
     @Column()
     name: string;
 
-    @ManyToMany(() => Genre, genre => genre.books)
+    @ManyToMany(() => Genre, genre => genre.books, {
+        cascade: true
+    })
     genres: Genre[];
 
-    @ManyToOne(() => Author, author => author.books)
-    @JoinColumn()
+    @ManyToOne(() => Author, author => author.books, {
+        cascade: true
+    })
     author: Author;
 
 }
