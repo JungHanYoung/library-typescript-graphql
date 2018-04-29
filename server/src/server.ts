@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
+import * as cors from 'cors';
 import * as path from 'path';
 
 import apiRouter from './routes';
@@ -24,6 +25,8 @@ class Server {
         this.app.use(logger('dev'));
         // static files setting - css, images
         this.app.use(express.static(path.join(__dirname, "./../public")));
+        // CORS Settings ( Network Error Solution )
+        this.app.use(cors());
 
     }
     /**

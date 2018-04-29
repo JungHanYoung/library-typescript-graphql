@@ -1,12 +1,12 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
 import * as http from 'http';
 import * as debug from 'debug';
 
 import Server from './server';
+import { typeormConn } from "./utils/typeormConn";
 
-createConnection().then(async () => {
-
+const startServer = async () => {
+    await typeormConn();
     const port = normalizePort(process.env.PORT || 4000);
     Server.set("port", port);
 
@@ -52,5 +52,6 @@ createConnection().then(async () => {
         const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
         debug(`Listening on ${bind}`);
     }
-    
-}).catch(error => console.log(error));
+}
+
+startServer();

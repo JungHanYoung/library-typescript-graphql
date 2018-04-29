@@ -11,7 +11,7 @@ export const getAllBooks = async ({}, res: Response) => {
     } catch(error) {
         console.log('Something broken..', error.message);
         return res.status(500).json({
-            error: error,
+            error,
             code: 5
         });
     }
@@ -27,7 +27,7 @@ export const addBook = async (req: Request, res: Response) => {
         const newBook = await Book.create({
             name: req.body.name,
             genres: [genre],
-            author: author
+            author
         });
         await newBook.save();
         return res.json({
@@ -36,7 +36,7 @@ export const addBook = async (req: Request, res: Response) => {
     } catch(error) {
         console.log('Something broken..', error.message);
         return res.status(500).json({
-            error: error,
+            error,
             code: 5
         });
     }
